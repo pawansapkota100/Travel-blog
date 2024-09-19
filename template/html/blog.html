@@ -1,0 +1,94 @@
+{% extends 'html/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!--/.Navbar -->
+    <!-- Blog-Section -->
+    <section class="blog-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 left-side">
+                    <h2>My Recent Blog Posts</h2>
+                {% for blog in blogs %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <figure class="figure">
+                                <img src="{{ blog.image.url }}" class="figure-img img-fluid" alt="{{blog.title}}">
+                                <figcaption class="figure-caption"> <img src="{% static 'images/comment.png'%}" alt=""><span>{{blog.id}}</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-6">
+                            <h4><a href="{% url 'blog_detail' blog.id %}">{{blog.title}}</a></h4>
+                            <div class="btn-group">
+                                {%for tag in blog.tag.all%}
+                                <a href="#" class="btn btn-danger">{{tag.name}}</a>
+                                {% endfor %}
+                            </div>
+                            <p>Posted on : {{blog.created_at|date:"F j, Y"}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="right-side">
+                                <h3>Whos Me ?</h3>
+                                <figure>
+                                    <img src="{% static 'images/banner-image-2.jpg' %}" alt="">
+                                </figure>
+                                <h5>Welcome to my personal travel blog, i love to travel the globe, i have been to so many beautiful places and met interesting people around the world, this website is my mirror of life...</h5>
+                                <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a>
+                                <address>
+                               <span>Phone: +44 1234567890</span>
+                               <span>Email : info@clickaholic.com</span>
+                           </address>
+                                <h2>Quick Contact</h2>
+                                <form id="contact" method="post" class="form" role="form">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-md-6 form-group">
+                                            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required/>
+                                        </div>
+                                        <div class="col-xs-6 col-md-6 form-group">
+                                            <input class="form-control" id="email" name="email" placeholder="Email" type="email" required />
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control" id="message" name="message" placeholder="Message" rows="5"></textarea>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12 form-group">
+                                            <button class="btn btn-primary" type="submit">Alright Submit it</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row bt">
+                <div class="col-sm-12">
+                    <ul>
+                        <li><a class="active" href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/.Portfolio-Section -->
+    <!-- Footer -->
+    {% include 'html/footer.html' %}
+
+{% endblock %}
