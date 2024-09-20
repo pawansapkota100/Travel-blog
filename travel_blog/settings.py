@@ -42,7 +42,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-INSTALLED_APPS+=['blog','django_ckeditor_5']
+INSTALLED_APPS+=['blog','django_ckeditor_5','cloudinary','cloudinary_storage',]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'drfznyqrt',
+    'API_KEY': '828333267236618',
+    'API_SECRET': '1J9Hxb8yJiF8T-YMQ1B14ATTzxY',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+MEDIA_URL = 'https://res.cloudinary.com/drfznyqrt/'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -140,8 +150,8 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 customColorPalette = [
