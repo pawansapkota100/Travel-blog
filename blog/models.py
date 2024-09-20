@@ -1,5 +1,6 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -10,7 +11,7 @@ class Blog(models.Model):
     title= models.CharField(max_length=150,verbose_name="Title of blog post")
     content= CKEditor5Field('Text', config_name='default')
     tag= models.ManyToManyField(Tag)
-    image= models.ImageField(upload_to="blog/")
+    image = CloudinaryField('blog')
     created_at= models.DateField(auto_now_add=True)
 
     def __str__(self):
