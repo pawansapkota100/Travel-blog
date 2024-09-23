@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-INSTALLED_APPS+=['blog','django_ckeditor_5','cloudinary','cloudinary_storage','crispy_forms']
+INSTALLED_APPS+=['blog','django_ckeditor_5','cloudinary','cloudinary_storage']
 DEBUG = True
 
 CLOUDINARY_STORAGE = {
