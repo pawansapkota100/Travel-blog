@@ -176,6 +176,23 @@
                     </div>
                 </div>
             </div>
+            <div class="row bt"></div>
+                <div class="col-sm-12">
+                    <ul>
+                        {% if blogs.has_previous %}
+                            <li><a href="?page=1">&laquo; First</a></li>
+                            <li><a href="?page={{ blogs.previous_page_number }}">Previous</a></li>
+                        {% endif %}
+                        
+                        <li><a class="active" href="#">{{ blogs.number }}</a></li>
+                        
+                        {% if blogs.has_next %}
+                            <li><a href="?page={{ blogs.next_page_number }}">Next</a></li>
+                            <li><a href="?page={{ blogs.paginator.num_pages }}">Last &raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
