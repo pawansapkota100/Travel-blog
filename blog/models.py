@@ -30,6 +30,8 @@ class Comment(models.Model):
 
 class Contact(models.Model):
     name= models.CharField(max_length=50)
+    image= CloudinaryField('Contact', null=True, blank=True)
+    description= CKEditor5Field('Text', config_name='default', null=True, blank=True)
     email= models.EmailField()
     phone_number= models.CharField(max_length=50, null=True, blank=True)
     message= models.TextField()
@@ -60,10 +62,17 @@ class AboutUs(models.Model):
 class whosme(models.Model):
     title= models.CharField(max_length=50)
     description= CKEditor5Field('Text', config_name='default')
-    image= models.ImageField(upload_to="whosme/")
+    image= CloudinaryField('whosme')
     phone= models.CharField(max_length=50)
     email= models.EmailField()
     created_at= models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+    
+
+class ClientMessage(models.Model):
+    name= models.CharField(max_length=50)
+    email= models.EmailField()
+    message= models.TextField()
+    created_at= models.DateField(auto_now_add=True)

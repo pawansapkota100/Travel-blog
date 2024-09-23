@@ -69,86 +69,28 @@
             <h2>Recently Added Photographs</h2>
             <div class="row justify-content-center">
                 <div class="col-md-12 col-12">
+                  {% for image in gallery %}
+                    {% if forloop.first or forloop.counter|divisibleby:3 %}
                     <div class="row">
-                        <a href="https://unsplash.it/1200/768.jpg?image=251" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-6 col-md-4 box-1">
-                          <img src="https://unsplash.it/600.jpg?image=251" class="img-fluid">
-                            <div class="overlay">
-                             <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                              <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                              <div class="count">45</div>
-                            </div>
-                        </a>
-                        <a href="https://unsplash.it/1200/768.jpg?image=252" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
-                         <img src="https://unsplash.it/600.jpg?image=252" class="img-fluid">
-                           <div class="overlay">
-                            <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                             <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                              <div class="count">45</div>
-                           </div>
-                        </a>
-                        <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
-                         <img src="https://unsplash.it/600.jpg?image=253" class="img-fluid">
-                           <div class="overlay">
-                            <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                             <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                             <div class="count">45</div>
-                           </div>
-                        </a>
+                    {% endif %}
+                
+                    <a href="{{ image.image.url }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-6 col-md-4 box-1">
+                      <img src="{{ image.image.url }}" alt="{{ image.alt }}" class="img-fluid">
+                      <div class="overlay">
+                        <img src="{% static 'images/comment.png' %}" alt="plus-icon">
+                        <div class="text">{{ image.description }} <span>{{ image.title }}</span></div>
+                        <div class="count">{{ forloop.counter }}</div>
+                      </div>
+                    </a>
+                
+                    {% if forloop.counter|divisibleby:3 or forloop.last %}
                     </div>
-                    <div class="row">
-                        <a href="https://unsplash.it/1200/768.jpg?image=254" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
-                          <img src="https://unsplash.it/600.jpg?image=254" class="img-fluid">
-                            <div class="overlay">
-                             <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                              <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                              <div class="count">45</div>
-                            </div>
-                        </a>
-                        <a href="https://unsplash.it/1200/768.jpg?image=255" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
-                         <img src="https://unsplash.it/600.jpg?image=255" class="img-fluid">
-                           <div class="overlay">
-                            <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                             <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                              <div class="count">45</div>
-                           </div>
-                        </a>
-                        <a href="https://unsplash.it/1200/768.jpg?image=256" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-6 col-md-4 box-1">
-                         <img src="https://unsplash.it/600.jpg?image=256" class="img-fluid">
-                           <div class="overlay">
-                            <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                             <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                             <div class="count">45</div>
-                           </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="https://unsplash.it/1200/768.jpg?image=257" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-6 col-md-4 box-1">
-                          <img src="https://unsplash.it/600.jpg?image=257" class="img-fluid">
-                            <div class="overlay">
-                             <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                              <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                              <div class="count">45</div>
-                            </div>
-                        </a>
-                        <a href="https://unsplash.it/1200/768.jpg?image=258" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
-                         <img src="https://unsplash.it/600.jpg?image=258" class="img-fluid">
-                           <div class="overlay">
-                            <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                             <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                              <div class="count">45</div>
-                           </div>
-                        </a>
-                        <a href="https://unsplash.it/1200/768.jpg?image=259" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-3 col-md-4 box-2">
-                         <img src="https://unsplash.it/600.jpg?image=259" class="img-fluid">
-                           <div class="overlay">
-                            <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                             <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                             <div class="count">45</div>
-                           </div>
-                        </a>
-                    </div>
+                    {% endif %}
+                    
+                  {% endfor %}
                 </div>
-            </div>
+                
+              </div>
         </div>
     </section>
 
@@ -157,74 +99,27 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12 left-side">
                     <h2>My Recent Blog Posts</h2>
+                    {% for blog in blogs %}
                     <div class="row">
                         <div class="col-md-6">
                             <figure class="figure">
-                                <a href="single.html"><img src="{% static 'images/banner-image-1.jpg'%}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure."></a>
-                                <figcaption class="figure-caption"> <img src="{% static 'images/comment.png'%}" alt=""><span>45</span>
+                                <img src="{{ blog.image.url }}" class="figure-img img-fluid" alt="{{blog.title}}">
+                                <figcaption class="figure-caption"> <img src="{% static 'images/comment.png'%}" alt=""><span>{{blog.id}}</span>
                                 </figcaption>
                             </figure>
                         </div>
                         <div class="col-md-6">
-                            <h4><a href="single.html">Super and up for the comming model in shoot at newyork USA morning..</a></h4>
+                            <h4><a href="{% url 'blog_detail' blog.id %}">{{blog.title}}</a></h4>
                             <div class="btn-group">
-                                <a href="single.html" class="btn btn-danger">Ladakh, India</a>
-                                <button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> 345</button>
+                                {%for tag in blog.tag.all%}
+                                <a href="#" class="btn btn-danger">{{tag.name}}</a>
+                                {% endfor %}
                             </div>
-                            <p>Posted on : 23.05.2016</p>
+                            <p>Posted on : {{blog.created_at|date:"F j, Y"}}</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <figure class="figure">
-                                <a href="single.html"><img src="{% static 'images/banner-image-2.jpg'%}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure."></a>
-                                <figcaption class="figure-caption"> <img src="{% static 'images/comment.png'%}" alt=""><span>45</span>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-6">
-                            <h4><a href="single.html">Super and up for the comming model in shoot at newyork USA morning..</a></h4>
-                            <div class="btn-group">
-                                <a href="single.html" class="btn btn-danger">Ladakh, India</a>
-                                <button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> 345</button>
-                            </div>
-                            <p>Posted on : 23.05.2016</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <figure class="figure">
-                                <a href="single.html"><img src="{% static 'images/banner-image-3.jpg'%}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure."></a>
-                                <figcaption class="figure-caption"> <img src="{% static 'images/comment.png'%}" alt=""><span>45</span>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-6">
-                            <h4><a href="single.html">Super and up for the comming model in shoot at newyork USA morning..</a></h4>
-                            <div class="btn-group">
-                                <a href="single.html" class="btn btn-danger">Ladakh, India</a>
-                                <button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> 345</button>
-                            </div>
-                            <p>Posted on : 23.05.2016</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <figure class="figure">
-                                <a href="single.html"><img src="{% static 'images/banner-image-4.jpg'%}" class="figure-img img-fluid" alt="A generic square placeholder image with rounded corners in a figure."></a>
-                                <figcaption class="figure-caption"><img src="{% static 'images/comment.png'%}" alt=""><span>45</span>
-                                </figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-6">
-                            <h4><a href="single.html">Super and up for the comming model in shoot at newyork USA morning..</a></h4>
-                            <div class="btn-group">
-                                <a href="single.html" class="btn btn-danger">Ladakh, India</a>
-                                <button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> 345</button>
-                            </div>
-                            <p>Posted on : 23.05.2016</p>
-                        </div>
-                    </div>
+                {% endfor %}
+                    
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="row">
@@ -232,9 +127,9 @@
                             <div class="right-side">
                                 <h3>Whos Me ?</h3>
                                 <figure>
-                                    <img src="{% static 'images/banner-image-2.jpg'%}" alt="">
+                                    <img src="{{whosme.image.url}}" alt="{{whosme.title}}">
                                 </figure>
-                                <h5>Welcome to my personal travel blog, i love to travel the globe, i have been to so many beautiful places and met interesting people around the world, this website is my mirror of life...</h5>
+                                <h5>{{whosme.description|safe}}</h5>
                                 <a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-youtube-square" aria-hidden="true"></i></a>
@@ -242,20 +137,32 @@
                                 <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-pinterest-square" aria-hidden="true"></i></a>
                                 <address>
-                               <span>Phone: +44 1234567890</span>
-                               <span>Email : info@clickaholic.com</span>
+                               <span>Phone: {{whosme.phone}}</span>
+                               <span>Email : {{whosme.email}}</span>
                            </address>
                                 <h2>Quick Contact</h2>
                                 <form id="contact" method="post" class="form" role="form">
+                                    {% csrf_token %}  <!-- Include CSRF token to protect against CSRF attacks -->
+                                    
                                     <div class="row">
                                         <div class="col-xs-6 col-md-6 form-group">
-                                            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required/>
+                                            {{ form.name.label_tag }}  <!-- Label for the name field -->
+                                            {{ form.name }}  <!-- Render name field manually -->
+                                            {{ form.name.errors }}  <!-- Display any validation errors for name field -->
                                         </div>
                                         <div class="col-xs-6 col-md-6 form-group">
-                                            <input class="form-control" id="email" name="email" placeholder="Email" type="email" required />
+                                            {{ form.email.label_tag }}  <!-- Label for the email field -->
+                                            {{ form.email }}  <!-- Render email field manually -->
+                                            {{ form.email.errors }}  <!-- Display any validation errors for email field -->
                                         </div>
                                     </div>
-                                    <textarea class="form-control" id="message" name="message" placeholder="Message" rows="5"></textarea>
+                                
+                                    <div class="form-group">
+                                        {{ form.message.label_tag }}  <!-- Label for the message field -->
+                                        {{ form.message }}  <!-- Render message field manually -->
+                                        {{ form.message.errors }}  <!-- Display any validation errors for message field -->
+                                    </div>
+                                    
                                     <br />
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12 form-group">
@@ -263,6 +170,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

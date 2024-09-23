@@ -42,13 +42,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-INSTALLED_APPS+=['blog','django_ckeditor_5','cloudinary','cloudinary_storage',]
+INSTALLED_APPS+=['blog','django_ckeditor_5','cloudinary','cloudinary_storage','crispy_forms']
+DEBUG = True
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'drfznyqrt',
     'API_KEY': '828333267236618',
     'API_SECRET': '1J9Hxb8yJiF8T-YMQ1B14ATTzxY',
 }
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = 'https://res.cloudinary.com/drfznyqrt/'
 
