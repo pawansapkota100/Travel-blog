@@ -40,7 +40,7 @@ class Contact(models.Model):
 
 class Gallery(models.Model):
     title= models.CharField(max_length=50)
-    image= models.ImageField(upload_to="gallery/")
+    image = CloudinaryField('Gallery')
     description= models.TextField()
     alt= models.CharField(max_length=50)
     created_at= models.DateField(auto_now_add=True)
@@ -51,7 +51,7 @@ class Gallery(models.Model):
 class AboutUs(models.Model):
     title= models.CharField(max_length=50)
     description= CKEditor5Field('Text', config_name='default')
-    image= models.ImageField(upload_to="about/")
+    image= CloudinaryField('AboutUs')
     created_at= models.DateField(auto_now_add=True)
 
     def __str__(self):
