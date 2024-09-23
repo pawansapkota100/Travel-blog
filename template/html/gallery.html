@@ -30,19 +30,27 @@
       </div>
       
     </div>
+    
     <div class="row bt">
       <div class="col-sm-12">
-        <ul>
-          <li><a class="active" href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-        </ul>
+          <ul>
+            {% if gallery.has_previous %}
+            <li><a href="?page=1">&laquo; First</a></li>
+            <li><a href="?page={{ gallery.previous_page_number }}">Previous</a></li>
+          {% endif %}
+              
+              <!-- <li><a class="active" href="#">{{ blogs.number }}</a></li> -->
+              
+              {% if gallery.has_next %}
+            <li><a href="?page={{ gallery.next_page_number }}">Next</a></li>
+            <li><a href="?page={{ gallery.paginator.num_pages }}">Last &raquo;</a></li>
+          {% endif %}
+          </ul>
       </div>
-    </div>
+  </div>
   </div>
 </section>
+
 <!--/.Portfolio-Section -->
 <!-- Footer -->
 {% include 'html/footer.html' %}

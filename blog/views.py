@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView,ListView,DetailView
 from .forms import BlogForm, ContactForm,ContactUsForm
 from .models import Blog,Gallery,AboutUs,whosme,Contact,Tag
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -14,8 +15,13 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         contex= super().get_context_data(**kwargs)
+        paginator=Paginator(self.blog, 5)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+
         contex['gallery']= self.gallery
-        contex['blogs']= self.blog
+        contex['blogs']= page_obj
         contex['whosme']= self.whosme
         contex['form']=  ContactForm()
         return contex
@@ -65,7 +71,12 @@ class BlogView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['blogs'] = Blog.objects.all() 
+
+        paginator=Paginator(Blog.objects.all(), 5)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context['blogs'] =page_obj
         context['whosme']= whosme.objects.first()
         context['form'] = ContactForm()
 
@@ -84,9 +95,26 @@ class BlogDetailsView(DetailView):
     model=Blog
     template_name= 'html/single.html'
     context_object_name= 'blog'
-    
+    def get_queryset(self):
+     return Gallery.objects.all()  # Ensure this returns data
 
-class GalleryView(ListView):
-    model= Gallery
-    template_name= 'html/gallery.html'
-    context_object_name= 'gallery'
+class GalleryView(TemplateView):
+    template_name = 'html/gallery.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Get all gallery items
+        gallery_items = Gallery.objects.all()
+        
+        # Create a Paginator object
+        paginator = Paginator(gallery_items, 10)  # 2 items per page
+        
+        # Get the current page number from the request
+        page_number = self.request.GET.get('page')
+        
+        # Get the items for the current page
+        page_obj = paginator.get_page(page_number)
+
+        context['gallery'] = page_obj
+        return context
