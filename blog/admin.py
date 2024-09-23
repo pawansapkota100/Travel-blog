@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models  import Blog,Tag, Comment, Contact, Gallery,AboutUs, whosme
+from .models  import Blog,Tag, Comment, Contact, Gallery,AboutUs, whosme,ClientMessage
 # Register your models here.
 
 admin.site.register(Blog)
@@ -9,3 +9,13 @@ admin.site.register(Contact)
 admin.site.register(Gallery)
 admin.site.register(AboutUs)
 admin.site.register(whosme)
+
+
+class clientmessage(admin.ModelAdmin):
+    list_display=['name','email','message']
+
+    def __str__(self):
+        return self.name
+
+
+admin.site.register(ClientMessage,clientmessage)
