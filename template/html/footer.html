@@ -5,27 +5,20 @@
         <div class="container">
             <h2>My Flickr Feed</h2>
             <div class="row text-center text-lg-left">
-                <div class="col-lg-2 col-md-4 col-xs-6">
-                    <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="{% static 'images/banner-image-1.jpg'%}" alt=""></a>
-                </div>
-                <div class="col-lg-2 col-md-4 col-xs-6">
-                    <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="{% static 'images/banner-image-2.jpg'%}" alt=""></a>
-                </div>
-                <div class="col-lg-2 col-md-4 col-xs-6">
-                    <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="{% static 'images/banner-image-3.jpg'%}" alt=""></a>
-                </div>
-                <div class="col-lg-2 col-md-4 col-xs-6">
-                    <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="{% static 'images/banner-image-4.jpg'%}" alt=""></a>
-                </div>
-                <div class="col-lg-2 col-md-4 col-xs-6">
-                    <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="{% static 'images/banner-image-2.jpg'%}" alt=""></a>
-                </div>
-                <div class="col-lg-2 col-md-4 col-xs-6">
-                    <a href="#" class="d-block h-100"><img class="img-fluid img-thumbnail" src="{% static 'images/banner-image-1.jpg'%}" alt=""></a>
-                </div>
+                {% for feed in flickr_feeds %}
+                    <div class="col-lg-2 col-md-4 col-xs-6">
+                        <a href="#" class="d-block h-100">
+                            <img class="img-fluid img-thumbnail" src="{{ feed.image.url }}" alt="{{ feed.title }}">
+                        </a>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p>No images available in the Flickr Feed.</p>
+                    </div>
+                {% endfor %}
             </div>
-
         </div>
+        
         <!-- /.container -->
     </section>
     <section class="footer-bottom">
@@ -33,17 +26,17 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
                         <li class="hidden">/</li>
-                        <li><a href="about.html">About-us</a></li>
+                        <li><a href="{% url 'about' %}">About-us</a></li>
                         <li class="hidden">/</li>
-                        <li><a href="mystories.html">My stories</a></li>
+                        <!-- <li><a href="mystories.html">My stories</a></li>
                         <li class="hidden">/</li>
                         <li><a href="destinations.html">Destinations</a></li>
+                        <li class="hidden">/</li> -->
+                        <li><a href="{% url 'gallery' %}">Gallery</a></li>
                         <li class="hidden">/</li>
-                        <li><a href="gallery.html">Gallery</a></li>
-                        <li class="hidden">/</li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
                     </ul>
                 </div>
                 <div class="col-md-12">
