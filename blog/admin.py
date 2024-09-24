@@ -1,13 +1,7 @@
 from django.contrib import admin
-from .models import Blog, Comment, Contact, Gallery, AboutUs, whosme, ClientMessage, Carousel, FlickrFeed
+from .models import Blog, Comment, Contact, Gallery, AboutUs, whosme, ClientMessage, Carousel, FlickrFeed,Tag
 
-class BlogAdmin(admin.ModelAdmin):
-    actions = ['delete_all']
 
-    @admin.action(description='Delete all records')
-    def delete_all(self, request, queryset):
-        queryset.delete()
-        self.message_user(request, "All blog records have been deleted.")
 
 class CommentAdmin(admin.ModelAdmin):
     actions = ['delete_all']
@@ -74,7 +68,8 @@ class FlickrFeedAdmin(admin.ModelAdmin):
         self.message_user(request, "All Flickr feed records have been deleted.")
 
 # Register your models with their corresponding admin classes
-admin.site.register(Blog, BlogAdmin)
+admin.site.register(Blog)
+admin.site.register(Tag)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Gallery, GalleryAdmin)

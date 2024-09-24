@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 INSTALLED_APPS+=['blog','django_ckeditor_5','cloudinary','cloudinary_storage']
-# DEBUG = True
+DEBUG = True
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'drfznyqrt',
