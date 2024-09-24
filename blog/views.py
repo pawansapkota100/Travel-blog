@@ -54,7 +54,7 @@ class ContactView(TemplateView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context= super().get_context_data(**kwargs)
         contact_info = Contact.objects.first()  # Get the first contact entry
-        context['contact_image'] = contact_info.image.url if contact_info.image else ''
+        # context['contact_image'] = contact_info.image.url if contact_info.image else ''
         context['contact_description'] = contact_info.description
         context['form']= ContactUsForm()
         return context
