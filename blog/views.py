@@ -1,8 +1,8 @@
 from typing import Any
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView,ListView,DetailView
-from .forms import BlogForm, ContactForm,ContactUsForm
-from .models import Blog,Gallery,AboutUs,whosme,Contact,Tag,Carousel
+from .forms import BlogForm, ContactForm,ContactUsForm,CommentForm
+from .models import Blog,Gallery,AboutUs,whosme,Contact,Tag,Carousel,Comment
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -71,6 +71,7 @@ class ContactView(TemplateView):
 
 class BlogView(TemplateView):
     template_name = 'html/blog.html'
+    look_up_field = 'slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -98,8 +99,31 @@ class BlogDetailsView(DetailView):
     model=Blog
     template_name= 'html/single.html'
     context_object_name= 'blog'
+    lookup_field = 'slug'
+    slug_url_kwarg = 'slug'
+    
+
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        context['comments']= self.object.comments.all()
+        context['blogs']=Blog.objects.order_by("?")[:2]
+        context['comments_form']=  CommentForm()
+        return context
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        commentform= CommentForm(request.POST)
+        if commentform.is_valid():
+            new_comment = commentform.save(commit=False)
+            new_comment.blog= self.object
+            new_comment.save()
+            return redirect('blog_detail', pk=self.object.pk)
+        context= self.get_context_data()
+        context['comments_form']=  commentform
+        return self.render_to_response(context)
     # def get_queryset(self):
     #  return Gallery.objects.all()  # Ensure this returns data
+
+
 
 class GalleryView(TemplateView):
     template_name = 'html/gallery.html'

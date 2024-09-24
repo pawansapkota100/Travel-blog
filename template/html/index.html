@@ -80,7 +80,7 @@
                             </figure>
                         </div>
                         <div class="col-md-6">
-                            <h4><a href="{% url 'blog_detail' blog.id %}">{{blog.title}}</a></h4>
+                            <h4><a href="{% url 'blog_detail' slug=blog.slug %}">{{blog.title}}</a></h4>
                             <div class="btn-group">
                                 {%for tag in blog.tag.all%}
                                 <a href="#" class="btn btn-danger">{{tag.name}}</a>
