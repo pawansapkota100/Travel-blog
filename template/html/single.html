@@ -61,22 +61,24 @@
                     </div>
                 </div>
                 <div class="row">
-                    <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="col-md-6 box-2">
+                    {% for post in blogs%}
+                    <a href="{% url 'blog_detail' slug=post.slug %}"  class="col-md-6 box-2">
+                 <img src="{{post.image.url}}" class="img-fluid">
+                   <div class="overlay">
+                    <!-- <img src="{% static 'images/comment.png'%}" alt="plus-icon"> -->
+                     <div class="text">{{post.title}} </div>
+                     <!-- <div class="count">45</div> -->
+                   </div>
+               </a>
+                    {% endfor %}
+                    <!-- <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="col-md-6 box-2">
                  <img src="https://unsplash.it/600.jpg?image=253" class="img-fluid">
                    <div class="overlay">
                     <img src="{% static 'images/comment.png'%}" alt="plus-icon">
                      <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
                      <div class="count">45</div>
                    </div>
-               </a>
-                    <a href="https://unsplash.it/1200/768.jpg?image=253" data-toggle="lightbox" data-gallery="example-gallery" class="col-md-6 box-2">
-                 <img src="https://unsplash.it/600.jpg?image=253" class="img-fluid">
-                   <div class="overlay">
-                    <img src="{% static 'images/comment.png'%}" alt="plus-icon">
-                     <div class="text">Man standing on the middle of the road in the morning <span>Landscapes</span></div>
-                     <div class="count">45</div>
-                   </div>
-               </a>
+               </a> -->
                 </div>
                 <hr/>
                 <div class="row">
@@ -84,36 +86,47 @@
                         <h2>Read Comments Posted</h2>
                     </div>
                 </div>
-                <form class="form">
+                <form method="POST" class="form">
+                    {% csrf_token %}
                     <div class="form-row">
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder="Enter your name  " required>
+                            <label for="id_full_name">Name</label>
+                            {{ comments_form.full_name }}  <!-- Name field -->
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="email" class="form-control" placeholder=" Enter your email" required>
+                            <label for="id_email">Email</label>
+                            {{ comments_form.email }}  <!-- Email field -->
                         </div>
                         <div class="col-md-4 mb-3">
-                            <input type="text" class="form-control" placeholder=" Enter your website" required>
+                            <label for="id_website">Website</label>
+                            {{ comments_form.website }}  <!-- Website field -->
                         </div>
                         <div class="col-md-12 mb-3">
-                            <textarea class="form-control" rows="5" placeholder="Write your message" required></textarea>
+                            <label for="id_comment">Comment</label>
+                            {{ comments_form.comment }}  <!-- Content (Message) field -->
                         </div>
                     </div>
                     <button class="btn btn-primary" type="submit">Submit Comment</button>
                 </form>
+                
+                
+                
+                
                 <div class="post">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h2>Comments Posted (4)</h2>
+                            <h2>Comments Posted ({{comments.count }})</h2>
                         </div>
                     </div>
                     <div class="row">
+                        {% for comment in comments %}
                         <div class="col-lg-6 col-md-12 col-12">
                             <div class="col1">
-                                <p><strong><span>12.06.2016</span>Manish Tiwari</strong>Wow...Wow.....i really like the way you write the to the articles about your photography, they are really awesome thanks a lot for sharing</p>
+                                <p><strong><span>{{comment.created_at}}</span>{{comment.full_name}}</strong>{{comment.comment}}</p>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12 col-12">
+                        {% endfor %}
+                        <!-- <div class="col-lg-6 col-md-12 col-12">
                             <div class="col1">
                                 <p><strong><span>12.06.2016</span>Mahender Singh</strong>Really like the way you write the articles about your photography</p>
                             </div>
@@ -122,7 +135,7 @@
                             <div class="col1">
                                 <p><strong><span>12.06.2016</span>Sudharshan Karnati</strong>Really like the way you write the articles about your photography</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

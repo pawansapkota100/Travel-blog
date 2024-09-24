@@ -1,6 +1,8 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 from cloudinary.models import CloudinaryField
+from django.utils.text import slugify
+
 
 # Create your models here.
 
@@ -15,15 +17,27 @@ class Blog(models.Model):
     content= CKEditor5Field('Text', config_name='default')
     tag= models.ManyToManyField(Tag)
     image = CloudinaryField('blog')
+    slug = models.SlugField(unique=True, editable=False)
     created_at= models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Generate a unique slug
+        if not self.slug:
+            self.slug = slugify(self.title)
+            # Ensure uniqueness
+            while Blog.objects.filter(slug=self.slug).exists():
+                self.slug = f"{self.slug}-{self.pk}" if self.pk else f"{self.slug}-1"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
 class Comment(models.Model):
-    comment= models.TextField()
-    blog= models.ForeignKey(Blog, on_delete=models.CASCADE)
+    full_name= models.CharField(max_length=50,default='')
     email= models.EmailField()
+    website= models.CharField(max_length=50, null=True, blank=True)
+    comment= models.TextField()
+    blog= models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments')
     parent= models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
     created_at= models.DateField(auto_now_add=True)
 
