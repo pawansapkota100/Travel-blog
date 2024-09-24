@@ -2,38 +2,41 @@ from typing import Any
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView,ListView,DetailView
 from .forms import BlogForm, ContactForm,ContactUsForm
-from .models import Blog,Gallery,AboutUs,whosme,Contact,Tag
+from .models import Blog,Gallery,AboutUs,whosme,Contact,Tag,Carousel
 from django.core.paginator import Paginator
 
 # Create your views here.
 
 class HomeView(TemplateView):
-    template_name= 'html/index.html'
-    gallery= Gallery.objects.all()
-    blog= Blog.objects.all()
-    whosme= whosme.objects.first()
+    template_name = 'html/index.html'
+    gallery = Gallery.objects.all()
+    blog = Blog.objects.all()
+    whosme = whosme.objects.first()
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        contex= super().get_context_data(**kwargs)
-        paginator=Paginator(self.blog, 5)
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.blog, 5)
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
+        # Add carousel items to the context
+        carousel_items = Carousel.objects.all()
 
-        contex['gallery']= self.gallery
-        contex['blogs']= page_obj
-        contex['whosme']= self.whosme
-        contex['form']=  ContactForm()
-        return contex
-    
+        context['gallery'] = self.gallery
+        context['blogs'] = page_obj
+        context['whosme'] = self.whosme
+        context['carousel_items'] = carousel_items  # Add carousel to context
+        context['form'] = ContactForm()
+        return context
+
     def post(self, request, *args, **kwargs):
-        form= ContactForm(request.POST)
+        form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('index')
         else:
             context = self.get_context_data()
-            context['form'] = form  
+            context['form'] = form
             return render(request, self.template_name, context)
 
 

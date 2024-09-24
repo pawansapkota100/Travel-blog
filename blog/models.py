@@ -76,3 +76,13 @@ class ClientMessage(models.Model):
     email= models.EmailField()
     message= models.TextField()
     created_at= models.DateField(auto_now_add=True)
+
+class Carousel(models.Model):
+    title= models.CharField(max_length=50)
+    description=models.CharField(max_length=50)
+    image= CloudinaryField('Carousel')
+
+class FlickrFeed(models.Model):
+    title= models.CharField(max_length=50)
+    image= CloudinaryField('FlickrFeed')
+
