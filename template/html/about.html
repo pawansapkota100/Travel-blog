@@ -11,9 +11,11 @@
                 <div class="col-sm-12">
                     <h3>About Us</h3>
                     {% for aboutus in about %}
+                    <div class="col-md-8 text-center"> <!-- Centering the image in a column -->
                         <figure class="figure">
-                            <img src="{{ aboutus.image.url }}" alt="about">
+                            <img src="{{ aboutus.image.url }}" alt="About" class="img-fluid mx-auto d-block"> <!-- Center the image -->
                         </figure>
+                    </div>
                         <div class="col-sm-12">
                             <p>{{ aboutus.description| safe }}</p>  <!-- Added <p> for better formatting -->
                         </div>

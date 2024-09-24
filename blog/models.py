@@ -79,7 +79,7 @@ class ClientMessage(models.Model):
 
 class Carousel(models.Model):
     title= models.CharField(max_length=50)
-    description=models.CharField(max_length=50)
+    description=models.CharField(max_length=100)
     image= CloudinaryField('Carousel')
 
 class FlickrFeed(models.Model):

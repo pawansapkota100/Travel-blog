@@ -9,45 +9,43 @@
     <div class="row justify-content-center">
       <div class="col-md-12 col-12">
         {% for image in gallery %}
-          {% if forloop.first or forloop.counter|divisibleby:3 %}
-          <div class="row">
+          {% if forloop.first or forloop.counter|divisibleby:5 %}
+            <div class="row">
           {% endif %}
-      
+
           <a href="{{ image.image.url }}" data-toggle="lightbox" data-gallery="example-gallery" class="col-xl-6 col-md-4 box-1">
             <img src="{{ image.image.url }}" alt="{{ image.alt }}" class="img-fluid">
             <div class="overlay">
               <img src="{% static 'images/comment.png' %}" alt="plus-icon">
-              <div class="text">{{ image.description }} <span>{{ image.title }}</span></div>
+              <div class="text">
+                {{ image.description }} <span>{{ image.title }}</span>
+              </div>
               <div class="count">{{ forloop.counter }}</div>
             </div>
           </a>
-      
-          {% if forloop.counter|divisibleby:3 or forloop.last %}
-          </div>
+
+          {% if forloop.counter|divisibleby:5 or forloop.last %}
+            </div>
           {% endif %}
-          
         {% endfor %}
       </div>
-      
     </div>
-    
+
     <div class="row bt">
       <div class="col-sm-12">
-          <ul>
-            {% if gallery.has_previous %}
+        <ul>
+          {% if gallery.has_previous %}
             <li><a href="?page=1">&laquo; First</a></li>
             <li><a href="?page={{ gallery.previous_page_number }}">Previous</a></li>
           {% endif %}
-              
-              <!-- <li><a class="active" href="#">{{ blogs.number }}</a></li> -->
-              
-              {% if gallery.has_next %}
+
+          {% if gallery.has_next %}
             <li><a href="?page={{ gallery.next_page_number }}">Next</a></li>
             <li><a href="?page={{ gallery.paginator.num_pages }}">Last &raquo;</a></li>
           {% endif %}
-          </ul>
+        </ul>
       </div>
-  </div>
+    </div>
   </div>
 </section>
 
