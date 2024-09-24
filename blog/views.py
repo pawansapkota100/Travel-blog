@@ -98,8 +98,8 @@ class BlogDetailsView(DetailView):
     model=Blog
     template_name= 'html/single.html'
     context_object_name= 'blog'
-    def get_queryset(self):
-     return Gallery.objects.all()  # Ensure this returns data
+    # def get_queryset(self):
+    #  return Gallery.objects.all()  # Ensure this returns data
 
 class GalleryView(TemplateView):
     template_name = 'html/gallery.html'

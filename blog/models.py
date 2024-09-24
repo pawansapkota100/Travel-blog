@@ -7,6 +7,9 @@ from cloudinary.models import CloudinaryField
 class Tag(models.Model):
     name= models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 class Blog(models.Model):
     title= models.CharField(max_length=150,verbose_name="Title of blog post")
     content= CKEditor5Field('Text', config_name='default')
